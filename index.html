@@ -1,190 +1,143 @@
-<!DOCTYPE html>
+import zipfile, os
+
+# Buat struktur folder
+folder_name = "/mnt/data/kaden_garden"
+os.makedirs(folder_name, exist_ok=True)
+
+# HTML
+html_content = """<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firsty Coffe- Menu Kopi</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #fdfaf4; /* cream lembut */
-            color: #4b2e2b; /* coklat tua */
-            overflow-x: hidden;
-        }
-
-        /* Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
-            transition: background 0.3s ease;
-        }
-        nav.scrolled {
-            background: #f0e5d8;
-        }
-        nav h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-            color: #4b2e2b;
-        }
-        nav a {
-            text-decoration: none;
-            margin-left: 20px;
-            color: #4b2e2b;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav a:hover {
-            color: #b07d62;
-        }
-
-        /* Header */
-        header {
-            height: 60vh;
-            background: url('https://images.unsplash.com/photo-1515442261605-cd4ce9f0a1a2') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            font-size: 42px;
-            font-weight: bold;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        /* Menu Section */
-        section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .menu-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-        }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .menu-card {
-            background: #fffdf9;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-        }
-        .menu-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .menu-card-content {
-            padding: 20px;
-        }
-        .menu-card h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-        .menu-card p {
-            margin: 10px 0;
-            font-size: 14px;
-            color: #6d4c41;
-        }
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
-
-        /* Fade-in Animation */
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-    </style>
+    <title>Kaden Garden - Peternakan Modern</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Navbar -->
+<header>
+    <div class="logo">🐓 Kaden Garden</div>
     <nav>
-        <h1>Firsty coffe</h1>
-        <div>
-            <a href="#menu">Menu</a>
-            <a href="#about">Tentang</a>
-            <a href="#contact">Kontak</a>
-        </div>
+        <a href="#home">Beranda</a>
+        <a href="#produk">Produk</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#kontak">Kontak</a>
+        <div id="cart-icon">🛒 <span id="cart-count">0</span></div>
     </nav>
+</header>
 
-    <!-- Header -->
-    <header>
-        Nikmati Secangkir Kopi Terbaik
-    </header>
+<section id="home" class="slider">
+    <div class="slides">
+        <img src="https://source.unsplash.com/1200x500/?chicken" alt="Ayam">
+        <img src="https://source.unsplash.com/1200x500/?goat" alt="Kambing">
+        <img src="https://source.unsplash.com/1200x500/?cow" alt="Sapi">
+    </div>
+</section>
 
-    <!-- Menu -->
-    <section id="menu">
-        <h2 class="menu-title">Aneka Kopi</h2>
-        <div class="menu-grid">
-            <div class="menu-card">
-                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Espresso">
-                <div class="menu-card-content">
-                    <h3>Espresso</h3>
-                    <p>Kopi hitam pekat dengan aroma kuat, pilihan pecinta kopi sejati.</p>
-                </div>
-            </div>
-            <div class="menu-card">
-                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Cappuccino">
-                <div class="menu-card-content">
-                    <h3>Cappuccino</h3>
-                    <p>Perpaduan espresso, susu, dan busa susu yang lembut.</p>
-                </div>
-            </div>
-            <div class="menu-card">
-                <img src="https://id.pinterest.com/pin/160088961749643776/" alt="Latte">
-                <div class="menu-card-content">
-                    <h3>Latte</h3>
-                    <p>Kopi susu dengan rasa halus, cocok untuk santai.</p>
-                </div>
-            </div>
-            <div class="menu-card">
-                <img src="https://id.pinterest.com/pin/105553185011155995/" alt="Mocha">
-                <div class="menu-card-content">
-                    <h3>Mocha</h3>
-                    <p>Perpaduan kopi, susu, dan cokelat yang manis dan creamy.</p>
-                </div>
-            </div>
+<section id="produk">
+    <h2>Produk Kami</h2>
+    <div class="produk-grid">
+        <div class="produk-card">
+            <img src="https://source.unsplash.com/300x200/?eggs" alt="Telur Ayam">
+            <h3>Telur Ayam</h3>
+            <p>Rp 25.000 / kg</p>
+            <button onclick="addToCart('Telur Ayam', 25000)">Tambah ke Keranjang</button>
         </div>
-    </section>
+        <div class="produk-card">
+            <img src="https://source.unsplash.com/300x200/?goat-meat" alt="Daging Kambing">
+            <h3>Daging Kambing</h3>
+            <p>Rp 120.000 / kg</p>
+            <button onclick="addToCart('Daging Kambing', 120000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="produk-card">
+            <img src="https://source.unsplash.com/300x200/?cow-milk" alt="Susu Sapi">
+            <h3>Susu Sapi</h3>
+            <p>Rp 18.000 / liter</p>
+            <button onclick="addToCart('Susu Sapi', 18000)">Tambah ke Keranjang</button>
+        </div>
+    </div>
+</section>
 
-    <script>
-        // Navbar scroll effect
-        window.addEventListener("scroll", function() {
-            const nav = document.querySelector("nav");
-            nav.classList.toggle("scrolled", window.scrollY > 50);
-        });
+<section id="tentang">
+    <h2>Tentang Kaden Garden</h2>
+    <p>Kaden Garden adalah peternakan modern yang mengutamakan kualitas dan kebersihan. Kami menyediakan produk ternak sehat seperti ayam, kambing, dan sapi, langsung dari peternakan ke meja Anda.</p>
+</section>
 
-        // Fade-in menu items
-        const menuCards = document.querySelectorAll(".menu-card");
-        window.addEventListener("scroll", () => {
-            menuCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    card.style.opacity = "1";
-                    card.style.transform = "translateY(0)";
-                }
-            });
-        });
-    </script>
+<section id="checkout" style="display:none;">
+    <h2>Checkout</h2>
+    <ul id="checkout-list"></ul>
+    <p><strong>Total: Rp <span id="total-price">0</span></strong></p>
+    <button onclick="alert('Pesanan Anda telah diproses! Terima kasih.')">Pesan Sekarang</button>
+</section>
+
+<footer id="kontak">
+    <p>📍 Alamat: Desa Makmur, Indonesia</p>
+    <p>📞 Telepon: +62 812-3456-7890</p>
+    <p>✉ Email: info@kadengarden.com</p>
+    <p>&copy; 2025 Kaden Garden</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
+"""
+
+# CSS
+css_content = """
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8fff8; color: #333; }
+header { display: flex; justify-content: space-between; align-items: center; background: #2e8b57; color: white; padding: 10px 20px; position: sticky; top: 0; }
+header .logo { font-size: 1.5em; font-weight: bold; }
+nav a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; }
+.slider { overflow: hidden; max-height: 500px; }
+.slides { display: flex; animation: slide 12s infinite; }
+.slides img { width: 100%; flex-shrink: 0; }
+@keyframes slide { 0%, 20% { transform: translateX(0); } 25%, 45% { transform: translateX(-100%); } 50%, 70% { transform: translateX(-200%); } 75%, 100% { transform: translateX(0); } }
+h2 { text-align: center; margin: 20px 0; color: #2e8b57; }
+.produk-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.produk-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; width: 250px; transition: transform 0.3s; }
+.produk-card:hover { transform: translateY(-5px); }
+.produk-card img { border-radius: 10px; max-width: 100%; }
+button { background: #2e8b57; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; }
+button:hover { background: #256d46; }
+footer { background: #2e8b57; color: white; text-align: center; padding: 20px; margin-top: 20px; }
+"""
+
+# JS
+js_content = """
+let cart = [];
+function addToCart(name, price) {
+    cart.push({ name, price });
+    document.getElementById('cart-count').textContent = cart.length;
+    alert(name + ' ditambahkan ke keranjang!');
+}
+document.getElementById('cart-icon').addEventListener('click', function() {
+    let checkoutSection = document.getElementById('checkout');
+    let checkoutList = document.getElementById('checkout-list');
+    let totalPrice = 0;
+    checkoutList.innerHTML = '';
+    cart.forEach(item => {
+        let li = document.createElement('li');
+        li.textContent = item.name + ' - Rp ' + item.price.toLocaleString();
+        checkoutList.appendChild(li);
+        totalPrice += item.price;
+    });
+    document.getElementById('total-price').textContent = totalPrice.toLocaleString();
+    checkoutSection.style.display = 'block';
+    window.scrollTo({ top: checkoutSection.offsetTop, behavior: 'smooth' });
+});
+"""
+
+# Simpan file
+with open(f"{folder_name}/index.html", "w") as f:
+    f.write(html_content)
+with open(f"{folder_name}/style.css", "w") as f:
+    f.write(css_content)
+with open(f"{folder_name}/script.js", "w") as f:
+    f.write(js_content)
+
+# ZIP-kan
+zip_path = "/mnt/data/kaden_garden.zip"
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+    for file_name in ["index.html", "style.css", "script.js"]:
+        zipf.write(os.path.join(folder_name, file_name), file_name)
+
+zip_path
