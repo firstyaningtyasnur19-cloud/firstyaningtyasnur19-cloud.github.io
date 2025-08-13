@@ -1,181 +1,190 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffee Display - Café Modern</title>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        background-color: #f5e6d3; /* Cream */
-        color: #3b2f2f; /* Coklat tua */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Vintage - Menu Kopi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fdfaf4; /* cream lembut */
+            color: #4b2e2b; /* coklat tua */
+            overflow-x: hidden;
+        }
 
-    header {
-        background-color: #3b2f2f;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        font-size: 2em;
-        letter-spacing: 2px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+        nav.scrolled {
+            background: #f0e5d8;
+        }
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #4b2e2b;
+        }
+        nav a {
+            text-decoration: none;
+            margin-left: 20px;
+            color: #4b2e2b;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #b07d62;
+        }
 
-    .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 30px;
-    }
+        /* Header */
+        header {
+            height: 60vh;
+            background: url('https://images.unsplash.com/photo-1515442261605-cd4ce9f0a1a2') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            font-size: 42px;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out;
+        }
 
-    .card {
-        background-color: #fff5e1;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .card:hover img {
-        transform: scale(1.1);
-    }
-
-    .card-content {
-        padding: 15px;
-    }
-
-    .card-content h3 {
-        margin: 0;
-        font-size: 1.3em;
-        color: #3b2f2f;
-    }
-
-    .card-content p {
-        font-size: 0.95em;
-        color: #5e4b4b;
-        margin-top: 5px;
-    }
-
-    .price {
-        margin-top: 10px;
-        font-weight: bold;
-        color: #a9745b;
-        font-size: 1.1em;
-    }
-
-    /* Animasi Fade In */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
+        /* Menu Section */
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .menu-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .menu-card {
+            background: #fffdf9;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
             transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
-    }
+        .menu-card-content {
+            padding: 20px;
+        }
+        .menu-card h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .menu-card p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #6d4c41;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
 
-    .card {
-        animation: fadeInUp 0.6s ease forwards;
-    }
-
-    /* Tombol Filter */
-    .filter-buttons {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .filter-buttons button {
-        background-color: #3b2f2f;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        margin: 5px;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .filter-buttons button:hover {
-        background-color: #a9745b;
-    }
-</style>
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
 </head>
 <body>
 
-<header>☕ Café Modern - Coffee Display</header>
-
-<div class="filter-buttons">
-    <button onclick="filterCoffee('all')">Semua</button>
-    <button onclick="filterCoffee('hot')">Hot Coffee</button>
-    <button onclick="filterCoffee('cold')">Cold Coffee</button>
-</div>
-
-<div class="container" id="coffeeContainer">
-    <div class="card" data-type="hot">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Espresso">
-        <div class="card-content">
-            <h3>Espresso</h3>
-            <p>Kopi pekat dengan aroma kuat.</p>
-            <div class="price">Rp 25.000</div>
+    <!-- Navbar -->
+    <nav>
+        <h1>Cafe Vintage</h1>
+        <div>
+            <a href="#menu">Menu</a>
+            <a href="#about">Tentang</a>
+            <a href="#contact">Kontak</a>
         </div>
-    </div>
+    </nav>
 
-    <div class="card" data-type="cold">
-        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772" alt="Iced Latte">
-        <div class="card-content">
-            <h3>Iced Latte</h3>
-            <p>Perpaduan espresso dan susu dingin.</p>
-            <div class="price">Rp 30.000</div>
+    <!-- Header -->
+    <header>
+        Nikmati Secangkir Kopi Terbaik
+    </header>
+
+    <!-- Menu -->
+    <section id="menu">
+        <h2 class="menu-title">Aneka Kopi</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Espresso">
+                <div class="menu-card-content">
+                    <h3>Espresso</h3>
+                    <p>Kopi hitam pekat dengan aroma kuat, pilihan pecinta kopi sejati.</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Cappuccino">
+                <div class="menu-card-content">
+                    <h3>Cappuccino</h3>
+                    <p>Perpaduan espresso, susu, dan busa susu yang lembut.</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1523942839745-7848d4b4d2d4" alt="Latte">
+                <div class="menu-card-content">
+                    <h3>Latte</h3>
+                    <p>Kopi susu dengan rasa halus, cocok untuk santai.</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1572441710534-680d90c76f3d" alt="Mocha">
+                <div class="menu-card-content">
+                    <h3>Mocha</h3>
+                    <p>Perpaduan kopi, susu, dan cokelat yang manis dan creamy.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="card" data-type="hot">
-        <img src="https://id.pinterest.com/pin/104145810133907488/" alt="Cappuccino">
-        <div class="card-content">
-            <h3>Cappuccino</h3>
-            <p>Kopi susu dengan foam lembut.</p>
-            <div class="price">Rp 28.000</div>
-        </div>
-    </div>
-
-    <div class="card" data-type="cold">
-        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Cold Brew">
-        <div class="card-content">
-            <h3>Cold Brew</h3>
-            <p>Kopi diseduh dingin selama 12 jam.</p>
-            <div class="price">Rp 35.000</div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function filterCoffee(type) {
-        const cards = document.querySelectorAll(".card");
-        cards.forEach(card => {
-            if (type === "all" || card.getAttribute("data-type") === type) {
-                card.style.display = "block";
-                card.style.animation = "fadeInUp 0.6s ease forwards";
-            } else {
-                card.style.display = "none";
-            }
+    <script>
+        // Navbar scroll effect
+        window.addEventListener("scroll", function() {
+            const nav = document.querySelector("nav");
+            nav.classList.toggle("scrolled", window.scrollY > 50);
         });
-    }
-</script>
 
+        // Fade-in menu items
+        const menuCards = document.querySelectorAll(".menu-card");
+        window.addEventListener("scroll", () => {
+            menuCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
