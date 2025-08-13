@@ -1,11 +1,11 @@
 import zipfile, os
 
 # Buat struktur folder
-folder_name = "/mnt/data/kaden_garden"
-os.makedirs(folder_name, exist_ok=True)
+folder_path = "/mnt/data/kaden_garden_website"
+os.makedirs(folder_path, exist_ok=True)
 
 # HTML
-html_content = """<!DOCTYPE html>
+html_code = """<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,7 @@ html_content = """<!DOCTYPE html>
             <button onclick="addToCart('Daging Kambing', 120000)">Tambah ke Keranjang</button>
         </div>
         <div class="produk-card">
-            <img src="https://source.unsplash.com/300x200/?cow-milk" alt="Susu Sapi">
+            <img src="https://source.unsplash.com/300x200/?milk" alt="Susu Sapi">
             <h3>Susu Sapi</h3>
             <p>Rp 18.000 / liter</p>
             <button onclick="addToCart('Susu Sapi', 18000)">Tambah ke Keranjang</button>
@@ -70,9 +70,9 @@ html_content = """<!DOCTYPE html>
 </section>
 
 <footer id="kontak">
-    <p>📍 Alamat: Desa Makmur, Indonesia</p>
-    <p>📞 Telepon: +62 812-3456-7890</p>
-    <p>✉ Email: info@kadengarden.com</p>
+    <p>📍 Desa Makmur, Indonesia</p>
+    <p>📞 +62 812-3456-7890</p>
+    <p>✉ info@kadengarden.com</p>
     <p>&copy; 2025 Kaden Garden</p>
 </footer>
 
@@ -82,15 +82,21 @@ html_content = """<!DOCTYPE html>
 """
 
 # CSS
-css_content = """
+css_code = """
 body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8fff8; color: #333; }
-header { display: flex; justify-content: space-between; align-items: center; background: #2e8b57; color: white; padding: 10px 20px; position: sticky; top: 0; }
+header { display: flex; justify-content: space-between; align-items: center; background: #2e8b57; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
 header .logo { font-size: 1.5em; font-weight: bold; }
 nav a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; }
+nav a:hover { text-decoration: underline; }
 .slider { overflow: hidden; max-height: 500px; }
 .slides { display: flex; animation: slide 12s infinite; }
 .slides img { width: 100%; flex-shrink: 0; }
-@keyframes slide { 0%, 20% { transform: translateX(0); } 25%, 45% { transform: translateX(-100%); } 50%, 70% { transform: translateX(-200%); } 75%, 100% { transform: translateX(0); } }
+@keyframes slide {
+    0%, 20% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-100%); }
+    50%, 70% { transform: translateX(-200%); }
+    75%, 100% { transform: translateX(0); }
+}
 h2 { text-align: center; margin: 20px 0; color: #2e8b57; }
 .produk-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 .produk-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; width: 250px; transition: transform 0.3s; }
@@ -102,7 +108,7 @@ footer { background: #2e8b57; color: white; text-align: center; padding: 20px; m
 """
 
 # JS
-js_content = """
+js_code = """
 let cart = [];
 function addToCart(name, price) {
     cart.push({ name, price });
@@ -127,17 +133,18 @@ document.getElementById('cart-icon').addEventListener('click', function() {
 """
 
 # Simpan file
-with open(f"{folder_name}/index.html", "w") as f:
-    f.write(html_content)
-with open(f"{folder_name}/style.css", "w") as f:
-    f.write(css_content)
-with open(f"{folder_name}/script.js", "w") as f:
-    f.write(js_content)
+with open(f"{folder_path}/index.html", "w") as f:
+    f.write(html_code)
+with open(f"{folder_path}/style.css", "w") as f:
+    f.write(css_code)
+with open(f"{folder_path}/script.js", "w") as f:
+    f.write(js_code)
 
 # ZIP-kan
-zip_path = "/mnt/data/kaden_garden.zip"
-with zipfile.ZipFile(zip_path, 'w') as zipf:
-    for file_name in ["index.html", "style.css", "script.js"]:
-        zipf.write(os.path.join(folder_name, file_name), file_name)
+zip_file_path = "/mnt/data/kaden_garden_website.zip"
+with zipfile.ZipFile(zip_file_path, 'w') as zipf:
+    zipf.write(f"{folder_path}/index.html", "index.html")
+    zipf.write(f"{folder_path}/style.css", "style.css")
+    zipf.write(f"{folder_path}/script.js", "script.js")
 
-zip_path
+zip_file_path
