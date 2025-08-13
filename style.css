@@ -1,0 +1,23 @@
+
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8fff8; color: #333; }
+header { display: flex; justify-content: space-between; align-items: center; background: #2e8b57; color: white; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; }
+header .logo { font-size: 1.5em; font-weight: bold; }
+nav a { margin: 0 10px; color: white; text-decoration: none; font-weight: bold; }
+nav a:hover { text-decoration: underline; }
+.slider { overflow: hidden; max-height: 500px; }
+.slides { display: flex; animation: slide 12s infinite; }
+.slides img { width: 100%; flex-shrink: 0; }
+@keyframes slide {
+    0%, 20% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-100%); }
+    50%, 70% { transform: translateX(-200%); }
+    75%, 100% { transform: translateX(0); }
+}
+h2 { text-align: center; margin: 20px 0; color: #2e8b57; }
+.produk-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.produk-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; width: 250px; transition: transform 0.3s; }
+.produk-card:hover { transform: translateY(-5px); }
+.produk-card img { border-radius: 10px; max-width: 100%; }
+button { background: #2e8b57; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; }
+button:hover { background: #256d46; }
+footer { background: #2e8b57; color: white; text-align: center; padding: 20px; margin-top: 20px; }
